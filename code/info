@@ -1,0 +1,44 @@
+import random
+import time
+
+class TemperatureController:
+    def __init__(self, target_temperature):
+        self.target_temperature = target_temperature
+        self.current_temperature = 25.0  # Initial temperature (replace with actual sensor reading)
+        self.max_temperature_variation = 2.0  # Maximum allowed temperature variation
+        self.cooling_rate = 0.1  # Rate at which the refrigerator cools down
+
+    def get_current_temperature(self):
+        # Simulate reading temperature from a sensor (replace with actual sensor code)
+        # For demonstration purposes, generate a random temperature between 20 and 30
+        self.current_temperature = random.uniform(20, 30)
+        return self.current_temperature
+
+    def cool_down(self):
+        # Simulate the cooling process
+        self.current_temperature -= self.cooling_rate
+        if self.current_temperature < self.target_temperature:
+            self.current_temperature = self.target_temperature
+
+    def control_temperature(self):
+        while True:
+            current_temperature = self.get_current_temperature()
+            print(f"Current Temperature: {current_temperature:.2f} C")
+
+            if current_temperature > self.target_temperature + self.max_temperature_variation:
+                print("Refrigerator too warm. Cooling down.")
+                self.cool_down()
+            elif current_temperature < self.target_temperature - self.max_temperature_variation:
+                print("Refrigerator too cold. Warming up.")
+                # You can implement a heating mechanism here if needed
+
+            time.sleep(1)  # Adjust the sleep duration based on your desired update frequency
+
+# Set the target temperature for the refrigerator
+target_temperature = 4.0  # Replace with your desired target temperature
+
+# Create an instance of the TemperatureController
+controller = TemperatureController(target_temperature)
+
+# Start the temperature control loop
+controller.control_temperature()
